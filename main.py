@@ -3,15 +3,7 @@
 # throughout this file
 import pygame
 from constants import *
-
-class CircleShape(pygame.sprite.Sprite):
-    def __init__(self, radius, color):
-        super().__init__()
-        self.radius = radius
-        self.color = color
-        self.image = pygame.Surface((radius * 2, radius * 2), pygame.SRCALPHA)
-        pygame.draw.circle(self.image, color, (radius, radius), radius)
-        self.rect = self.image.get_rect()
+from player import Player
 
 def main():
     print("Starting Asteroids!")
@@ -20,12 +12,13 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     dt = 0
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                print(dt)
                 return
         screen.fill("black")
+        player.draw(screen)
         pygame.display.flip()
         dt = clock.tick(60) / 1000
         
